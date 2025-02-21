@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    console.log('HomeComponent initialized');
     try {
       this.isAdmin = this.authService.hasRole('ADMIN');
     } catch (error) {

@@ -6,10 +6,6 @@ export const roleGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  console.log('roleGuard called for route:', state.url);
-  console.log('Required role:', route.data['requiredRole']);
-  console.log('isAuthenticated:', authService.isAuthenticated());
-
   const requiredRole = route.data['requiredRole'] as string;
   const allowAnonymous = route.data['allowAnonymous'] as boolean;
 
@@ -19,13 +15,10 @@ export const roleGuard: CanActivateFn = (route, state) => {
 
   if (authService.isAuthenticated()) {
     if (requiredRole && !authService.hasRole(requiredRole)) {
-      console.log('User does not have required role');
       return router.createUrlTree(['/unauthorized']);
     }
-    console.log('Access granted');
     return true;
   }
 
-  console.log('User not authenticated, redirecting to login');
   return router.createUrlTree(['/login']);
 };
