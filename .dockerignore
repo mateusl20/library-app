@@ -11,7 +11,7 @@ frontend/dist/
 frontend/.angular/cache/
 frontend/.vscode/
 frontend/.editorconfig
-frontend/.gitignore
+.gitignore
 frontend/*.zip
 
 .git/

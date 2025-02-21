@@ -1,0 +1,77 @@
+# Compiled output
+**/dist
+**/tmp
+**/out-tsc
+**/bazel-out
+**/target/
+**/build/
+
+# Dependencies
+**/node_modules
+
+# IDEs and editors
+.idea/
+.vscode/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+/frontend/.angular/cache/*
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log
+yarn-error.log
+
+# Spring Boot
+HELP.md
+.mvn/wrapper/maven-wrapper.jar
+**/src/main/**/target/
+**/src/test/**/target/
+**/src/main/**/build/
+**/src/test/**/build/
+
+# Java
+*.class
+*.jar
+*.war
+
+# Maven
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/frontend/.angular/cache/*
