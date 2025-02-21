@@ -1,41 +1,35 @@
-# Build backend
-FROM maven:3.9.4-eclipse-temurin-21 AS backend-build
-
-WORKDIR /app/backend
-
-COPY backend/.mvn/ .mvn
-COPY backend/mvnw .
-COPY backend/pom.xml .
-
-RUN ./mvnw dependency:go-offline -B
-
-COPY backend/src ./src
-
-RUN ./mvnw package -DskipTests
-
-FROM node:14 AS frontend-build
-
+# Stage 1: Build the Angular frontend
+FROM node:16 AS frontend-build
 WORKDIR /app/frontend
-
-COPY frontend/package*.json ./
-
+COPY frontend/package.json frontend/package-lock.json ./
 RUN npm install
-
-COPY frontend/ .
-
+COPY frontend/ ./
 RUN npm run build
 
-FROM openjdk:21-jdk-slim
+# Stage 2: Build the Java backend
+FROM maven:3.9-amazoncorretto-21 AS backend-build
+WORKDIR /app/backend
+COPY backend/pom.xml ./
+RUN mvn dependency:go-offline
+COPY backend/src ./src
+RUN mvn package -DskipTests
 
+# Stage 3: Final image
+FROM amazoncorretto:21
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y nodejs npm
+# Install Node.js and npm
+RUN curl -fsSL https://rpm.nodesource.com/setup_16.x | bash - \
+    && yum install -y nodejs
 
-COPY --from=backend-build /app/backend/target/*.jar app.jar
-
+# Copy the built frontend
 COPY --from=frontend-build /app/frontend /app/frontend
 
+# Copy the built backend JAR
+COPY --from=backend-build /app/backend/target/*.jar /app/backend.jar
+
+# Expose ports for backend and frontend
 EXPOSE 8080 4200
 
-# Start both backend and frontend
-CMD java -jar app.jar & cd /app/frontend && npm start
+# Start both the backend and frontend
+CMD ["sh", "-c", "java -jar /app/backend.jar & cd /app/frontend && npm start"]
