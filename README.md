@@ -11,6 +11,8 @@ Este projeto consiste em um backend Spring Boot e um frontend Angular para um Si
 Para executar o backend e o frontend com um único comando:
 
 1. Clone este repositório:
+   
+`git clone https://github.com/mateusl20/library-app.git`
 
 2. Construa e execute a aplicação:
    
