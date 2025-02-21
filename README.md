@@ -1,1 +1,1 @@
-"# library-fronend" 
+angular frontend library app
