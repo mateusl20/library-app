@@ -1,1 +1,23 @@
-<p>user-list works!</p>
+<h2>Utilizadores da Biblioteca</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>E-mail</th>
+    <th>Perfil</th>
+    <th>Data Criação</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{ user.name }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.profile }}</td>
+    <td>{{ user.creationDate | date }}</td>
+    <td>
+      <button (click)="inactivateUser(user.id)" [disabled]="user.id === currentUserId">Inativar</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
