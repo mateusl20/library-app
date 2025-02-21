@@ -1,0 +1,26 @@
+<h2>Livros da Biblioteca</h2>
+<button *ngIf="isAdmin" (click)="openAddBookModal()">Adicionar</button>
+<table>
+  <thead>
+  <tr>
+    <th>Título</th>
+    <th>Categoria</th>
+    <th>Exemplares</th>
+    <th>Disponível</th>
+    <th *ngIf="isAuthenticated">Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let book of books">
+    <td>{{ book.title }}</td>
+    <td>{{ book.category }}</td>
+    <td>{{ book.copies }}</td>
+    <td>{{ book.available ? 'Sim' : 'Não' }}</td>
+    <td *ngIf="isAuthenticated">
+      <button (click)="rentBook(book.id!)" *ngIf="book.available && book.id">Alugar</button>
+      <button (click)="returnBook(book.id!)" *ngIf="!book.available && book.id">Devolver</button>
+      <button (click)="removeBook(book.id!)" *ngIf="isAdmin && book.id">Remover</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
