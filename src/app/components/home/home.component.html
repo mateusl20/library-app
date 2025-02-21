@@ -1,1 +1,6 @@
-<p>home works!</p>
+<h1>Biblioteca</h1>
+<nav>
+  <a routerLink="/books">Livros</a>
+  <a routerLink="/users" *ngIf="isAdmin">Utilizadores</a>
+  <button (click)="logout()">Logout</button>
+</nav>
